@@ -1,5 +1,7 @@
 package com.tuts.main;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -28,7 +30,11 @@ public class Main {
     private void create(){
         Session session = sessionFactory.openSession();
         try {
-            UserDetails userDetails = new UserDetails("utkarsh", "utkarsh@gmail.com", new Address("noida", "UP") , new Address("allahabad", "UP"));
+            Set<Address> listofAddresses = new HashSet<>();
+            listofAddresses.add(new Address("noida", "UP"));
+            listofAddresses.add(new Address("buxar", "BIHAR"));
+            
+            UserDetails userDetails = new UserDetails("utkarsh", "utkarsh@gmail.com", listofAddresses);
             
             session.beginTransaction();
             session.save(userDetails);
@@ -58,6 +64,7 @@ public class Main {
         Main main = new Main();
         main.setup();
         main.create();
+        main.read();
         main.exit();
     }
 }

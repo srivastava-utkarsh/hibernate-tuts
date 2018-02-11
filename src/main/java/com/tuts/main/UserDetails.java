@@ -1,8 +1,8 @@
 package com.tuts.main;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,28 +22,16 @@ public class UserDetails {
     
     private String email;
     
-    @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "street" , column = @Column(name = "home_street")),
-        @AttributeOverride(name = "city" , column = @Column(name = "home_city"))
-    })
-    private Address homeAddress;
-    
-    @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "street" , column = @Column(name = "office_street")),
-        @AttributeOverride(name = "city" , column = @Column(name = "office_city"))
-    })
-    private Address officeAddress;
+    @ElementCollection
+    private Set<Address> listOfAddresses = new HashSet<>();
 
     public UserDetails() {
     }
 
-    public UserDetails(String name, String email, Address homeAddress, Address officeAddress) {
+    public UserDetails(String name, String email, Set<Address> address) {
         this.name = name;
         this.email = email;
-        this.homeAddress = homeAddress;
-        this.officeAddress = officeAddress;
+        this.listOfAddresses = address;
     }
 
     public long getId() {
@@ -70,25 +58,17 @@ public class UserDetails {
         this.email = email;
     }
 
-    public Address getHomeAddress() {
-        return homeAddress;
+    public Set<Address> getAddress() {
+        return listOfAddresses;
     }
 
-    public void setHomeAddress(Address homeAddress) {
-        this.homeAddress = homeAddress;
+    public void setAddress(Set<Address> address) {
+        this.listOfAddresses = address;
     }
 
-    public Address getOfficeAddress() {
-        return officeAddress;
-    }
-
-    public void setOfficeAddress(Address officeAddress) {
-        this.officeAddress = officeAddress;
-    }
-    
     @Override
     public String toString() {
-        return "UserDetails[ id : "+id+" ,, email : "+email+" ,, homeAddress :"+ homeAddress+" ,, officeAddress : "+officeAddress+" ]";
+        return "UserDetails[ id : "+id+" ,, email : "+email+" ,, address :"+listOfAddresses+" ]";
     }
     
     
