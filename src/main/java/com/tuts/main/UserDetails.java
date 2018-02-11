@@ -1,14 +1,22 @@
 package com.tuts.main;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Table;
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "user_details")
@@ -23,12 +31,15 @@ public class UserDetails {
     private String email;
     
     @ElementCollection
-    private Set<Address> listOfAddresses = new HashSet<>();
+    @JoinTable(name = "user_address" , joinColumns = @JoinColumn(name = "user_detail_id"))
+    @GenericGenerator(name = "hilo-gen" , strategy = "hilo")
+    @CollectionId(columns = {@Column(name = "address_id")} , generator = "hilo-gen" , type = @Type(type = "long"))
+    private Collection<Address> listOfAddresses = new ArrayList<>();
 
     public UserDetails() {
     }
 
-    public UserDetails(String name, String email, Set<Address> address) {
+    public UserDetails(String name, String email, Collection<Address> address) {
         this.name = name;
         this.email = email;
         this.listOfAddresses = address;
@@ -58,11 +69,11 @@ public class UserDetails {
         this.email = email;
     }
 
-    public Set<Address> getAddress() {
+    public Collection<Address> getAddress() {
         return listOfAddresses;
     }
 
-    public void setAddress(Set<Address> address) {
+    public void setAddress(Collection<Address> address) {
         this.listOfAddresses = address;
     }
 
