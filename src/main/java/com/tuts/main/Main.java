@@ -30,13 +30,13 @@ public class Main {
     private void create(){
         Session session = sessionFactory.openSession();
         try {
-            Set<Address> listofAddresses = new HashSet<>();
-            listofAddresses.add(new Address("noida", "UP"));
-            listofAddresses.add(new Address("buxar", "BIHAR"));
             
-            UserDetails userDetails = new UserDetails("utkarsh", "utkarsh@gmail.com", listofAddresses);
             
+            UserDetails userDetails = new UserDetails("utkarsh", "utkarsh@gmail.com");
+            Vehicle vehicle = new Vehicle("twister");
+            userDetails.setVehicle(vehicle);
             session.beginTransaction();
+            session.save(vehicle);
             session.save(userDetails);
             session.getTransaction().commit();
             
@@ -64,7 +64,7 @@ public class Main {
         Main main = new Main();
         main.setup();
         main.create();
-        main.read();
+//        main.read();
         main.exit();
     }
 }

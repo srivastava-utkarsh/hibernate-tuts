@@ -17,6 +17,7 @@
     <property name="hbm2ddl.auto">create</property>
        
     <mapping class="com.tuts.main.UserDetails"></mapping>
+    <mapping class="com.tuts.main.Vehicle"></mapping>
        
   </session-factory>
 </hibernate-configuration>
