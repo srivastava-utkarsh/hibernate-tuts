@@ -1,6 +1,8 @@
 package com.tuts.main;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,10 +35,17 @@ public class Main {
             
             
             UserDetails userDetails = new UserDetails("utkarsh", "utkarsh@gmail.com");
-            Vehicle vehicle = new Vehicle("twister");
-            userDetails.setVehicle(vehicle);
+            Vehicle vehicle1 = new Vehicle("twister");
+            Vehicle vehicle2 = new Vehicle("gixer");
+            List<Vehicle> vehicles = new ArrayList<>();
+            vehicles.add(vehicle1);
+            vehicles.add(vehicle2);
+            
+            
+            userDetails.setVehicle(vehicles);
             session.beginTransaction();
-            session.save(vehicle);
+            session.save(vehicle1);
+            session.save(vehicle2);
             session.save(userDetails);
             session.getTransaction().commit();
             

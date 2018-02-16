@@ -1,15 +1,13 @@
 package com.tuts.main;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.persistence.ElementCollection;
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -25,9 +23,13 @@ public class UserDetails {
     
     private String email;
     
-    @OneToOne
-    @JoinColumn(name = "veh_id")
-    private Vehicle vehicle;
+    @OneToMany
+    @JoinTable(
+            name = "user_vechile" , 
+            joinColumns = @JoinColumn(name = "user_id") ,
+            inverseJoinColumns = @JoinColumn(name = "vechile_id")
+    )
+    private List<Vehicle> vehicle;
     
     public UserDetails() {
     }
@@ -61,11 +63,11 @@ public class UserDetails {
         this.email = email;
     }
 
-    public Vehicle getVehicle() {
+    public List<Vehicle> getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(Vehicle vehicle) {
+    public void setVehicle(List<Vehicle> vehicle) {
         this.vehicle = vehicle;
     }
 
