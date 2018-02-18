@@ -4,7 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 @Table(name = "vechile")
@@ -15,11 +19,24 @@ public class Vehicle {
     private int id;
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private UserDetails userDetail;
+    
     public Vehicle() {
     }
 
     public Vehicle(String name) {
         this.name = name;
+    }
+
+    public UserDetails getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetails userDetail) {
+        this.userDetail = userDetail;
     }
 
     public int getId() {
