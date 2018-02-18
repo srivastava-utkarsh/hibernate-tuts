@@ -32,15 +32,14 @@ public class Main {
     private void create(){
         Session session = sessionFactory.openSession();
         try {
-            UserDetails userDetails = new UserDetails("utkarsh", "utkarsh@gmail.com");
             Vehicle vehicle1 = new Vehicle("twister");
-            Vehicle vehicle2 = new Vehicle("gixer");
-            List<Vehicle> vehicles = userDetails.getVehicle();
-            vehicles.add(vehicle1);
-            vehicles.add(vehicle2);
-            userDetails.setVehicle(vehicles);
+            TwoWheeler bike = new TwoWheeler("bike steering hanlde", "honda twster");
+            FourWheeler car = new FourWheeler("car steering wheen", "porsche");
+            
             session.beginTransaction();
-            session.persist(userDetails);
+            session.save(vehicle1);
+            session.save(bike);
+            session.save(car);
             session.getTransaction().commit();
             
         } finally {

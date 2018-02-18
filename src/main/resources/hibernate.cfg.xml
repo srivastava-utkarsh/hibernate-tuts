@@ -18,6 +18,8 @@
        
     <mapping class="com.tuts.main.UserDetails"></mapping>
     <mapping class="com.tuts.main.Vehicle"></mapping>
+    <mapping class="com.tuts.main.TwoWheeler"></mapping>
+    <mapping class="com.tuts.main.FourWheeler"></mapping>
        
   </session-factory>
 </hibernate-configuration>
